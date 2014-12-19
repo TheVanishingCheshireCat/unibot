@@ -19,12 +19,16 @@ public class UnibotController {
     
     /**
      * Moves the robot using external differential drive.
-     * @param velocity The forward/reverse velocity, clipped to [-1.0,1.0].
+     * @param velocity The forward/reverse velocity in m/s.
      * @param turnVelocity The difference between left/right speed. Clipped to 
      * [-1.5,1.5]. <br> -1.5: Full turn to left. <br> 0.0: Straight movement.
      * <br> 1.5: Full turn to right.
      */
     public void moveDiffEx(double velocity, double turnVelocity) {
+        //velocity = 1.07824642033967 * velocity + 0.0505902134326258; //(velocity + 0.096854) / 0.930264;
+        velocity = 1.07 * velocity + 0.0469;
+        //System.out.printf("New velocity: %.3f",velocity);
+        turnVelocity += 0.0082;
         comm.sendCommand(String.format("#D %f %f", velocity, turnVelocity));
     }
     

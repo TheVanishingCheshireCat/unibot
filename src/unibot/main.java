@@ -11,14 +11,17 @@ import java.util.logging.Logger;
 public class main {
     
     // How long to send the robot forward
-    final static int trial_length = 10000;
+    final static int trial_length = 20000;
+    final static double vL_R = 0;
+    final static double forward_velocity = 0.1;
+    
 
     static UnibotController robot = new UnibotController();
     
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         if(!robot.isResponding())
             System.out.println("\nRobot is not responding! maybe pause state not set...");
         else {
@@ -26,21 +29,11 @@ public class main {
         }
         System.out.println("\nAttempting to move robot forward with speed 0.2...\n");
         
-        robot.moveDiffEx(0.1, 0.0082);
+        robot.moveDiffEx(forward_velocity,vL_R);
+                
+        //System.out.println("\nAttempting to move robot backward with speed 0.2...\n");
         
-        System.out.println("Waiting...\n");
-        
-        try {
-            Thread.sleep(trial_length);
-            robot.stop();
-            //Thread.sleep(2000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        System.out.println("\nAttempting to move robot backward with speed 0.2...\n");
-        
-        //robot.moveDiffEx(-0.5, 0.0082);
+        //robot.moveDiffEx(-0.4, 0);
         
         System.out.println("Waiting...\n");
         

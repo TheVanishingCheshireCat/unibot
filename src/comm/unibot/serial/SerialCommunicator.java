@@ -41,6 +41,7 @@ public final class SerialCommunicator extends Communicator {
             
             // make sure we're ready for commands
             setPauseState(false);
+            setPIDcontrol(true);
         
         } catch(SerialPortException ex) {
             System.out.println(ex);
@@ -92,6 +93,9 @@ public final class SerialCommunicator extends Communicator {
         sendCommand("#P" + (paused ? "1" : "0"));
     }
     
+    public void setPIDcontrol(boolean set) {
+        sendCommand("#M" + (set ? "1" : "0"));
+    }
     
     @Override
     public void close() {
